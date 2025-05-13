@@ -1,7 +1,7 @@
 <?php
 class DatabaseConection{
     private function dbConect(){
-        $_servername="jdbc:mysql://localhost:3306/examenmlfrancisco";
+        $_servername="localhost";
         $_username="root";
         $_password="";
         $_database="examenmlfrancisco";

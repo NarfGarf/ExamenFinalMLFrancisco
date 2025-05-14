@@ -20,17 +20,33 @@ $pass = htmlspecialchars($_REQUEST["pass"]);
 //usar PreparedStatement para consultas sql para que no sql injeccion
 //$name == 'admin'&& $pass == 'pass'
 //<button type="button" class="btn btn-primary">Primary</button>
-if (login($name,$pass)){
+if (register($name,$pass)){
 ?>
     <h1>VALIDO</h1>
 <?php
 } else{
 ?>
     <h1>NO VALIDO</h1>
-    <button type="button" class="btn btn-primary" onclick="location.href='index.html'">Regresar</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='RegistrarUsuario.html'">Regresar</button>
 <?php
 }
-function login($name,$pass){
+function register($name,$pass){
+    if(alreadyHere($name,$pass)){return false;}// si ya hay un usuario con ese nombre y contraseña, no creamos otro.
+    $dConnect = new  DatabaseConection;
+    try{
+    $stmt =$dConnect->prepare("insert into usuarios (nombre,pass) VALUES (?,?)");
+    $stmt->bind_param("ss",$name,$pass);
+    $stmt->execute();
+    echo "Usuario Creado Exitosamente";
+    return true;
+    }catch(Exception $e){
+        echo "Error:" . $e->getMessage();
+        return false;
+    }
+    
+}
+
+function alreadyHere($name,$pass){
     $sqlName = "SELECT * FROM usuarios";
     $dConnect = new  DatabaseConection;
     $datos = $dConnect-> exec_query($sqlName);
@@ -40,9 +56,8 @@ function login($name,$pass){
             return true;
        }
     }
-    return false;
+    return false; 
 }
-
 
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>

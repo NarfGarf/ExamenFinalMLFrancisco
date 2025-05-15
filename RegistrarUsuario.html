@@ -6,12 +6,28 @@
     
 </head>
 <body>
-    <h1>Registrar Usuario</h1>
+    <h1>Crear cuenta</h1>
     <form action="RegistrarUsuario.php" method="POST">
+        <label for="">Nombre:</label>
+        <input type="text"  name="nombre" required><br><br>
+        <label for="">Apellidos:</label>
+        <input type="text"  name="apellido" required><br><br>
+        <label for="">Correo:</label>
+        <input type="email"  name="correo" required><br><br>
+        <label for="">Fecha Nacimiento:</label>
+        <input type="date"  name="fecha_nac" required><br>
+        <label for="">Genero:</label><br>
+        <input type="radio" id="Masculino" name="genero" value="Masculino">
+        <label for="Masculino">Masculino</label><br>
+        <input type="radio" id="Femenino" name="genero" value="Femenino">
+        <label for="Femenino">Femenino</label><br>
+        <input type="radio" id="Otro" name="genero" value="Otro">
+        <label for="Otro">Otro</label><br><br>
+    <h1>Registrar Usuario</h1>
         <label for="">Name:</label>
         <input type="text"  name="name" required><br><br>
         <label for="">Password:</label>
-        <input type="pass"  name="pass" required><br><br>
+        <input type="password"  name="pass" required><br><br>
         <button class="btn btn-success" type="submit">Registrar</button>
     </form>
     <button type="button" class="btn btn-primary" onclick="location.href='index.html'" >Iniciar Sesion</button>

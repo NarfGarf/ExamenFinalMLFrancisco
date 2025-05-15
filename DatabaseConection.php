@@ -24,5 +24,19 @@ class DatabaseConection{
         mysqli_close($mysqli);
         return $res;
     }
+    public function register_user($name,$pass){
+        $mysqli=$this->dbConect();
+        $stmt = $mysqli->prepare("insert into usuarios (nombre,pass) VALUES (?,?)");
+        $stmt->bind_param("ss", $name, $pass);
+        $stmt->execute();
+        mysqli_close($mysqli);
+    }
+    public function register_client($name,$apell,$correo,$fecha_nac,$genero){
+        $mysqli=$this->dbConect();
+        $stmt = $mysqli->prepare("insert into clientes (nombre,apellidos,correo,fecha_nac,genero) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("sssss", $name, $apell,$correo,$fecha_nac,$genero);
+        $stmt->execute();
+        mysqli_close($mysqli);
+    }
 }
 ?>

@@ -9,18 +9,28 @@ include "DatabaseConection.php";
 
 $dConnect = new  DatabaseConection;
 
-$name = "";
-$pass = "";
+$User_name = "";
+$User_pass = "";
 
-$name = htmlspecialchars($_REQUEST["name"]);
-$pass = htmlspecialchars($_REQUEST["pass"]);
+$Cli_name = "";
+$Cli_apell = "";
+$Cli_correo = "";
+$Cli_fecha_nac = "";
+$Cli_genero = "";
 
+$User_name = htmlspecialchars($_REQUEST["name"]);
+$User_pass = htmlspecialchars($_REQUEST["pass"]);
 
+$Cli_name = htmlspecialchars($_REQUEST["nombre"]);
+$Cli_apell = htmlspecialchars($_REQUEST["apellido"]);
+$Cli_correo = htmlspecialchars($_REQUEST["correo"]);
+$Cli_fecha_nac = htmlspecialchars($_REQUEST["fecha_nac"]);
+$Cli_genero = htmlspecialchars($_REQUEST["genero"]);
 
 //usar PreparedStatement para consultas sql para que no sql injeccion
-//$name == 'admin'&& $pass == 'pass'
+//$User_name == 'admin'&& $User_pass == 'pass'
 //<button type="button" class="btn btn-primary">Primary</button>
-if (register($name,$pass)){
+if (registerUser($User_name,$User_pass,$Cli_correo)&& registerClient($Cli_name,$Cli_apell,$Cli_correo,$Cli_fecha_nac,$Cli_genero,$User_name,$User_pass)){
 ?>
     <h1>VALIDO</h1>
 <?php
@@ -30,29 +40,58 @@ if (register($name,$pass)){
     <button type="button" class="btn btn-primary" onclick="location.href='RegistrarUsuario.html'">Regresar</button>
 <?php
 }
-function register($name,$pass){
-    if(alreadyHere($name,$pass)){return false;}// si ya hay un usuario con ese nombre y contraseña, no creamos otro.
+
+
+
+function registerUser($User_name,$User_pass,$Cli_correo){
+    if(userAlreadyHere($User_name,$User_pass)||cliAlreadyHere($Cli_correo)){return false;}// si ya hay un usuario con ese nombre y contraseña, no creamos otro.
+    
     $dConnect = new  DatabaseConection;
     try{
-    $stmt =$dConnect->prepare("insert into usuarios (nombre,pass) VALUES (?,?)");
-    $stmt->bind_param("ss",$name,$pass);
-    $stmt->execute();
+    $dConnect->register_user($User_name,$User_pass);
+    
     echo "Usuario Creado Exitosamente";
     return true;
     }catch(Exception $e){
         echo "Error:" . $e->getMessage();
         return false;
     }
-    
 }
 
-function alreadyHere($name,$pass){
+function userAlreadyHere($User_name,$User_pass){
     $sqlName = "SELECT * FROM usuarios";
     $dConnect = new  DatabaseConection;
     $datos = $dConnect-> exec_query($sqlName);
 
     while($row = mysqli_fetch_assoc($datos)){
-       if($name == $row["nombre"] && $pass == $row["pass"]){
+       if($User_name == $row["nombre"] && $User_pass == $row["pass"]){
+            return true;
+       }
+    }
+    return false; 
+}
+
+function registerClient($Cli_name,$Cli_apell,$Cli_correo,$Cli_fecha_nac,$Cli_genero,$User_name,$User_pass){
+    if(cliAlreadyHere($Cli_correo)){return false;}// si ya hay un cliente con ese correo, no creamos otro.
+    $dConnect = new  DatabaseConection;
+    try{
+    $dConnect->register_client($Cli_name,$Cli_apell,$Cli_correo,$Cli_fecha_nac,$Cli_genero);
+    
+    echo "Cliente Creado Exitosamente";
+    return true;
+    }catch(Exception $e){
+        echo "Error:" . $e->getMessage();
+        return false;
+    }
+}
+
+function cliAlreadyHere($Cli_correo){
+    $sqlName = "SELECT * FROM clientes";
+    $dConnect = new  DatabaseConection;
+    $datos = $dConnect-> exec_query($sqlName);
+
+    while($row = mysqli_fetch_assoc($datos)){
+       if($Cli_correo == $row["correo"]){
             return true;
        }
     }

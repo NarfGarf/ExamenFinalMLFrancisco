@@ -22,11 +22,13 @@ $pass = htmlspecialchars($_REQUEST["pass"]);
 //<button type="button" class="btn btn-primary">Primary</button>
 if (login($name,$pass)){
 ?>
-    <h1>VALIDO</h1>
+    <meta http-equiv="refresh" content="0; url='Shop.php'" />
 <?php
 } else{
 ?>
-    <h1>NO VALIDO</h1>
+    <div class="alert alert-danger" role="alert">
+        Error, Usuario o contraseña incorrecto
+    </div>
     <button type="button" class="btn btn-primary" onclick="location.href='index.html'">Regresar</button>
 <?php
 }

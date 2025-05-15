@@ -27,17 +27,24 @@ $Cli_correo = htmlspecialchars($_REQUEST["correo"]);
 $Cli_fecha_nac = htmlspecialchars($_REQUEST["fecha_nac"]);
 $Cli_genero = htmlspecialchars($_REQUEST["genero"]);
 
+
 //usar PreparedStatement para consultas sql para que no sql injeccion
 //$User_name == 'admin'&& $User_pass == 'pass'
 //<button type="button" class="btn btn-primary">Primary</button>
 if (registerUser($User_name,$User_pass,$Cli_correo)&& registerClient($Cli_name,$Cli_apell,$Cli_correo,$Cli_fecha_nac,$Cli_genero,$User_name,$User_pass)){
 ?>
-    <h1>VALIDO</h1>
+    <div class="alert alert-success" role="alert">
+        Usuario Registrado Exitosamente!
+    </div>
+    <button type="button" class="btn btn-primary" onclick="location.href='index.html'">Iniciar Sesion</button>
+    
 <?php
 } else{
 ?>
-    <h1>NO VALIDO</h1>
-    <button type="button" class="btn btn-primary" onclick="location.href='RegistrarUsuario.html'">Regresar</button>
+    <div class="alert alert-danger" role="alert">
+        Error, Usuario ya existente o correo ya existente
+    </div>
+    <button type="button" class="btn btn-primary" onclick="location.href='RegistrarUsuario.html'">Reintentar</button>
 <?php
 }
 
@@ -50,7 +57,6 @@ function registerUser($User_name,$User_pass,$Cli_correo){
     try{
     $dConnect->register_user($User_name,$User_pass);
     
-    echo "Usuario Creado Exitosamente";
     return true;
     }catch(Exception $e){
         echo "Error:" . $e->getMessage();
@@ -77,7 +83,6 @@ function registerClient($Cli_name,$Cli_apell,$Cli_correo,$Cli_fecha_nac,$Cli_gen
     try{
     $dConnect->register_client($Cli_name,$Cli_apell,$Cli_correo,$Cli_fecha_nac,$Cli_genero);
     
-    echo "Cliente Creado Exitosamente";
     return true;
     }catch(Exception $e){
         echo "Error:" . $e->getMessage();

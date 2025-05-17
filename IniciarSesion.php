@@ -16,37 +16,37 @@ $dConnect = new  DatabaseConection;
 $name = "";
 $pass = "";
 
+// Se usa htmlspecialchars() para prevenir html injection
 $name = htmlspecialchars($_REQUEST["name"]);
 $pass = htmlspecialchars($_REQUEST["pass"]);
 
 
 
-//usar PreparedStatement para consultas sql para que no sql injeccion
-//$name == 'admin'&& $pass == 'pass'
-//<button type="button" class="btn btn-primary">Primary</button>
-if (login($name,$pass)){
+
+if (login($name,$pass)){// Intenta iniciar sesión, si funciona te envía al Shop.php. Si falla te avisa y te permite regresar a Login.html
 ?>
-    <meta http-equiv="refresh" content="0; url='Shop.php'" />
+    <meta http-equiv="refresh" content="0; url='Shop.php'" /><!--Te envía directamente a Shop.php-->
 <?php
 } else{
 ?>
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert"><!--Avisa que ocurrio un error-->
         Error, Usuario o contraseña incorrecto
     </div>
-    <button type="button" class="btn btn-primary" onclick="location.href='index.html'">Regresar</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='Login.html'">Regresar</button><!--Regresar a Login.html-->
 <?php
 }
-function login($name,$pass){
+function login($name,$pass){// Metodo para iniciar sesión
     $sqlName = "SELECT * FROM usuarios";
     $dConnect = new  DatabaseConection;
     $datos = $dConnect-> exec_query($sqlName);
 
+    // Por cada fila de datos, compara el nombre y la contraseña de la base de datos con los datos aportados en el formulario
     while($row = mysqli_fetch_assoc($datos)){
        if($name == $row["nombre"] && $pass == $row["pass"]){
-            return true;
+            return true;// Devuelve true si encuentra algo
        }
     }
-    return false;
+    return false;// Devuelve false si ningun dato en la BD coincide con los aportados
 }
 
 

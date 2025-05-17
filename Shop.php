@@ -10,7 +10,7 @@
     </head>
     <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <a class="navbar-brand" >Shop de Palos y Rocas</a>
+        <a class="navbar-brand" >Shop de Palos y Rocas</a><!--Titulo del shop-->
     </nav>
 
 
@@ -21,7 +21,7 @@
         $sqlName = "SELECT * FROM productos";
         $dConnect = new  DatabaseConection;
         $datos = $dConnect-> exec_query($sqlName);
-        while($row = mysqli_fetch_assoc($datos)){// automaticamente agrega los productos de la tabla a la pagina web
+        while($row = mysqli_fetch_assoc($datos)){// Automaticamente agrega los productos de la tabla a la pagina web con sus datos
         ?>
         <div class="card">
             <img src="<?php echo $row["image"]?>" class="card-img-top" alt="img">
@@ -36,7 +36,7 @@
         
         </div>
         </div>
-        <button type="button" class="btn btn-warning" onclick="location.href='index.html'">Logout</button>
+        <button type="button" class="btn btn-warning" onclick="location.href='Login.html'">Logout</button><!--Regresar a Login.html-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     </body>
 </html>

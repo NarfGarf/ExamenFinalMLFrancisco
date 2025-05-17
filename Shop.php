@@ -36,7 +36,7 @@
         
         </div>
         </div>
-        <button type="button" class="btn btn-primary" onclick="location.href='index.html'">Logout</button>
+        <button type="button" class="btn btn-warning" onclick="location.href='index.html'">Logout</button>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
     </body>
 </html>

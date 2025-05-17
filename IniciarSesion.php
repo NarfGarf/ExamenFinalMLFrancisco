@@ -21,8 +21,6 @@ $name = htmlspecialchars($_REQUEST["name"]);
 $pass = htmlspecialchars($_REQUEST["pass"]);
 
 
-
-
 if (login($name,$pass)){// Intenta iniciar sesión, si funciona te envía al Shop.php. Si falla te avisa y te permite regresar a Login.html
 ?>
     <meta http-equiv="refresh" content="0; url='Shop.php'" /><!--Te envía directamente a Shop.php-->

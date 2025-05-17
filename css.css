@@ -1,0 +1,32 @@
+body {
+    background-color: aliceblue;
+}
+.card{
+    margin: 0.3cm; 
+    width: 19rem;
+}
+
+.card-img-top{
+    margin-top: 0.3cm;
+    height: 20rem;
+}
+.card-text{
+    height: 7cap;
+}
+.alert-danger{
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 1cm;
+}
+.btn{
+    display: block;
+    margin: auto;
+    margin-bottom: 0.2cm;
+}
+form{
+    text-align: center;
+}
+.navbar-brand{
+    display: block;
+    margin: auto;
+}
